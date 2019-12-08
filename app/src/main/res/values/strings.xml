@@ -6,4 +6,11 @@
     <string name="speck_not_active">I am not active</string>
     <string name="exp_title">Speaking Clock</string>
     <string name="exp_des">The clock will speak after one hour in a periodic interval and the interval is exact</string>
+    <string-array name="week_numbers">
+        <item>Week One</item>
+        <item>Week Two</item>
+        <item>Week Three</item>
+        <item>Week Four</item>
+
+    </string-array>
 </resources>
