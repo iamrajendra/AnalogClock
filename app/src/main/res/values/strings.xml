@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Analog Clock View</string>
+    <string name="app_name">Pandalum</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="speck_active">I am active</string>
+    <string name="speck_not_active">I am not active</string>
 </resources>

@@ -26,4 +26,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    def work_version = "2.2.0"
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
+
 }
