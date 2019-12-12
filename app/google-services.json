@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "209100071744",
+    "firebase_url": "https://pandalum-19449.firebaseio.com",
+    "project_id": "pandalum-19449",
+    "storage_bucket": "pandalum-19449.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209100071744:android:fe9068dd8e016261f110a5",
+        "android_client_info": {
+          "package_name": "com.iamrajendra.analogclock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209100071744-udirtdb3ulnb7vda94lqs9uttcumta9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmpOiK3GenFZdZp4c79T2fj2hOXCHAdmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209100071744-udirtdb3ulnb7vda94lqs9uttcumta9e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,17 +4,27 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:id="@+id/tool"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:visibility="visible"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/md_white_1000"
+        android:elevation="1dp">
 
         <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/weekOfMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_centerVertical="true"
             android:entries="@array/week_numbers"
             android:padding="8dp" />
 
@@ -27,25 +37,69 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/add_period"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_black_24dp" />
+                app:srcCompat="@drawable/ic_add_black_24dp" />
 
             <ImageButton
+                android:id="@+id/settings"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_black_24dp" />
+                app:srcCompat="@drawable/ic_menu_black_24dp" />
         </LinearLayout>
 
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/selected_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/md_white_1000"
+        android:elevation="1dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+
+
+            <ImageButton
+                android:id="@+id/delete"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_delete_black_24dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+    </LinearLayout>
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_below="@id/tool"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar" />
+        android:layout_below="@id/tabs">
+
+
+    </androidx.viewpager.widget.ViewPager>
 
 
 </RelativeLayout>

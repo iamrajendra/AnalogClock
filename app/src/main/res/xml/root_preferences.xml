@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory app:title="@string/specking_clock">
+        <SwitchPreferenceCompat
+            app:key="clock"
+            app:title="Clock"
+            app:icon="@drawable/ic_clock_100dp"
+            app:summaryOn="disable the clock will not give you any time alert after the hour"
+            app:summaryOff="Enable the speaking clock it will tell you the time after each hour."
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
