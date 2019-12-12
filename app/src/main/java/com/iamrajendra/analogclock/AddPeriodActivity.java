@@ -40,22 +40,24 @@ public class AddPeriodActivity extends AppCompatActivity implements View.OnClick
                         @Override
                         public void onTimeSelected(long time) {
                             periodTableV2.setStartDate(time);
+                            setTime(periodTableV2);
                         }
                     };
 
                     timePickerDialog.show();
-                    setTime(periodTableV2);
+
                     break;
                 case R.id.end_time:
                     TimeChooserDialog endTime = new TimeChooserDialog(AddPeriodActivity.this, getResources().getString(R.string.end_time), periodTableV2.getEndDate()) {
                         @Override
                         public void onTimeSelected(long time) {
                             periodTableV2.setEndDate(time);
+                            setTime(periodTableV2);
                         }
                     };
 
                     endTime.show();
-                    setTime(periodTableV2);
+
 
                     break;
             }
@@ -141,7 +143,7 @@ public class AddPeriodActivity extends AppCompatActivity implements View.OnClick
 
     public void setTime(PeriodTableV2 time) {
         ((TextView) findViewById(R.id.startTime_tv)).setText(Date.getTime(Date.TIME, time.getStartDate()));
-        ((TextView) findViewById(R.id.startTime_tv)).setText(Date.getTime(Date.TIME, time.getEndDate()));
+        ((TextView) findViewById(R.id.endTime_tv)).setText(Date.getTime(Date.TIME, time.getEndDate()));
     }
 
 
