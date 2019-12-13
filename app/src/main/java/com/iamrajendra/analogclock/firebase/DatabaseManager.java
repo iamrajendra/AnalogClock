@@ -2,6 +2,7 @@ package com.iamrajendra.analogclock.firebase;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
@@ -92,9 +93,9 @@ private MutableLiveData<List<PeriodTableV2>> pMutableLiveData = new MutableLiveD
     public void insert(PeriodTableV2 tableV2, OnSuccessListener<DocumentReference> success,OnFailureListener failure){
 
         db.collection(uid)
-                .add(tableV2)
-                .addOnSuccessListener(success)
+                .add(tableV2).addOnSuccessListener(success)
                 .addOnFailureListener(failure);
+
 
     }
 

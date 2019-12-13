@@ -12,9 +12,15 @@ import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
+
+
+import com.iamrajendra.analogclock.utlis.NotificationManager;
+import com.iamrajendra.analogclock.utlis.PendulumAlarmManager;
 
 import java.util.Calendar;
 
@@ -48,8 +54,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
             SwitchPreferenceCompat preferenceCompat = findPreference("clock");
             preferenceCompat.setOnPreferenceClickListener(this);
+
+            SwitchPreferenceCompat test = findPreference("test");
+            test.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+
+
+                    return false;
+                }
+            });
 
         }
 //eb749245515in speed post

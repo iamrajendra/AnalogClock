@@ -9,4 +9,15 @@
             app:summaryOff="Enable the speaking clock it will tell you the time after each hour."
             />
     </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="for testing">
+        <SwitchPreferenceCompat
+            app:key="test"
+            app:title="test"
+            app:icon="@drawable/ic_clock_100dp"
+            app:summaryOn="disable the clock will not give you any time alert after the hour"
+            app:summaryOff="Enable the speaking clock it will tell you the time after each hour."
+            />
+    </PreferenceCategory>
 </PreferenceScreen>

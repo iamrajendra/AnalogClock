@@ -121,6 +121,7 @@ public class AddPeriodActivity extends AppCompatActivity implements View.OnClick
                 ((Application) getApplication()).getManager().insert(periodTableV2, new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+
                         new Message(getApplicationContext()).success("Save is saved successfully").show();
                         finish();
                     }
