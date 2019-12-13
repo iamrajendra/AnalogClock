@@ -72,15 +72,13 @@ public class BaseService extends IntentService {
     private Notification createNotifiaction() {
         String NOTIFICATION_CHANNEL_ID = createNotificationChannel();
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-        Notification notification = notificationBuilder.setOngoing(true)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(caption)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_clock_24dp)
-                .setPriority(NotificationManager.IMPORTANCE_MIN)
-                .setCategory(Notification.CATEGORY_SERVICE)
-                .build();
-        return notification;
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+               ;
+        return builder.build();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -1,107 +1,83 @@
 package com.iamrajendra.analogclock;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.ImageButton;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.viewpager.widget.ViewPager;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
+import com.astuetz.PagerSlidingTabStrip;
+import com.iamrajendra.analogclock.model.DayModel;
+import com.iamrajendra.analogclock.utlis.Date;
+import com.iamrajendra.analogclock.viewpager.DayPager;
 
 
-public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+private ViewPager viewPager;
+    Intent intent  = new Intent();
+    private View viewSelectedMenu;
+    private View viewMainMenu;
+    private ImageButton delete;
+    private  DayPager dayPager;
 
-    private AlarmManager alarmManager;
-    private PendingIntent alarmIntent;
-    private Intent intent;
-    private Switch aSwitch;
-    private SharedPreferences sharedPreferences;
+    public ImageButton getDelete() {
+        return delete;
+    }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        AnalogClock analogClock = findViewById(R.id.analogClock);
-
-        sharedPreferences = getSharedPreferences("setting",0);
-
-        aSwitch = findViewById(R.id.active_s);
-        aSwitch.setOnCheckedChangeListener(this);
-
-        aSwitch.setChecked(sharedPreferences.getBoolean("key",false));
-        intent = new Intent(this, ClockReceiver.class);
-
-        alarmIntent = PendingIntent.getBroadcast(this, 111, intent, 0);
-
-        setTime();
-
-
-//        workManager();
-    }
+        viewMainMenu = findViewById(R.id.toolbar);
+        viewSelectedMenu = findViewById(R.id.selected_toolbar);
+        viewPager = findViewById(R.id.viewpager);
+        dayPager = new DayPager(getSupportFragmentManager());
+        viewPager.setAdapter(dayPager);
+        viewPager.setCurrentItem(Date.today()-2);
+        // TODO: 12-12-2019 we have to complete the spinner thing
+        AppCompatSpinner appCompatSpinner = findViewById(R.id.weekOfMonth);
+        appCompatSpinner.setSelection(Date.weekOfMonth());
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(viewPager);
+        delete = findViewById(R.id.delete);
+        findViewById(R.id.add_period).setOnClickListener(this);
+        findViewById(R.id.settings).setOnClickListener(this);
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void setTime() {
-        Calendar calendar  = Calendar.getInstance();
-        calendar.set(Calendar.SECOND,00);
-        calendar.set(Calendar.MINUTE,00);
-        calendar.set(Calendar.HOUR,calendar.get(Calendar.HOUR)+1);
-
-        alarmManager.cancel(alarmIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    alarmIntent);
-        }
-
-
-    }
-
-
+           }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-//        if (alarmManager != null) {
-//            alarmManager.cancel(alarmIntent);
-//        }
+    public void onClick(View v) {
 
 
+        switch (v.getId()){
+            case R.id.settings:
+                intent.setClass(this,SettingsActivity.class);
+                break;
+            case R.id.add_period:
+                intent.setClass(this,AddPeriodActivity.class);
+                intent.putExtra("day",dayPager.getItemByPosition(viewPager.getCurrentItem()).getDayId());
+                break;
+        }
+        startActivity(intent);
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        SharedPreferences.Editor edit = sharedPreferences.edit();
-        edit.putBoolean("key",isChecked);
-        edit.commit();
-        if (isChecked){
-            if (alarmIntent!=null)
-            setTime();
-        }else {
-if (alarmIntent!=null)
-            alarmManager.cancel(alarmIntent);
-        }
+    protected void onRestart() {
+        super.onRestart();
+//        if (viewPager!=null) viewPager.setCurrentItem(Date.today());
+    }
 
+    public void selectMenuSate(Boolean aBoolean) {
+        viewMainMenu.setVisibility(aBoolean?View.GONE:View.VISIBLE);
+        viewSelectedMenu.setVisibility(aBoolean?View.VISIBLE:View.GONE);
     }
 }
+
