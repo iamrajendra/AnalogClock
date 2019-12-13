@@ -16,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 import com.iamrajendra.analogclock.firebase.DatabaseManager;
 import java.util.Calendar;
+import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,14 +43,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
-        private static final String TAG = String.class.getSimpleName();
+        private  final String TAG = String.class.getSimpleName();
         private DatabaseManager manager;
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("setting", 0);
+        SharedPreferences sharedPreferences ;
+
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             manager = Application.getApplication().getManager();
+            sharedPreferences= getActivity().getSharedPreferences("setting", 0);
             SwitchPreferenceCompat preferenceCompat = findPreference("clock");
             preferenceCompat.setOnPreferenceClickListener(this);
 
