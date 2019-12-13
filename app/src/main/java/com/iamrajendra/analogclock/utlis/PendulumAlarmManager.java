@@ -8,6 +8,7 @@ import android.os.Build;
 
 import com.iamrajendra.analogclock.ClockReceiver;
 import com.iamrajendra.analogclock.PendulumAlarmReceiver;
+import com.iamrajendra.analogclock.model.PeriodTableV2;
 
 public class PendulumAlarmManager {
     private  PendingIntent pendingIntent;
@@ -35,5 +36,21 @@ private Context context;
                     pendingIntent);
         }
 
+    }
+
+    public void createAlarm(PeriodTableV2 periodTableV2) {
+        intent.putExtra("key",periodTableV2.getUid());
+        intent.putExtra("title",periodTableV2.getTitle());
+        intent.putExtra("des",Date.getTime(Date.TIME,periodTableV2.getStartDate())+":"+Date.getTime(Date.TIME,periodTableV2.getEndDate())+" "+periodTableV2.getDescription());
+
+        pendingIntent = PendingIntent.getBroadcast(context, 111, intent, 0);
+
+//        alarmManager.cancel(pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    periodTableV2.getStartDate(),
+                    pendingIntent);
+        }
     }
 }

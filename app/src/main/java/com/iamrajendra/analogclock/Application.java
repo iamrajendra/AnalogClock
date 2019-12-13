@@ -13,6 +13,11 @@ public class Application extends MultiDexApplication {
     private MutableLiveData<Integer> selectedColor =  new MutableLiveData<>();
     private String androidId;
     private DatabaseManager  manager;
+    private static Application application;
+
+    public static Application getApplication() {
+        return application;
+    }
 
     public DatabaseManager getManager() {
         return manager;
@@ -33,10 +38,11 @@ public class Application extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        application =this;
          androidId = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID)+"com.iamrajendra.analogclock";
         MultiDex.install(this);
-        manager  = new DatabaseManager(getAndroidId());
+        manager  = new DatabaseManager(getAndroidId(),getApplicationContext());
     }
 
 

@@ -9,19 +9,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-
-
-import com.iamrajendra.analogclock.utlis.NotificationManager;
-import com.iamrajendra.analogclock.utlis.PendulumAlarmManager;
-
+import com.iamrajendra.analogclock.firebase.DatabaseManager;
 import java.util.Calendar;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,26 +43,32 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
     public static class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
         private static final String TAG = String.class.getSimpleName();
+        private DatabaseManager manager;
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("setting", 0);
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
+            manager = Application.getApplication().getManager();
             SwitchPreferenceCompat preferenceCompat = findPreference("clock");
             preferenceCompat.setOnPreferenceClickListener(this);
 
-            SwitchPreferenceCompat test = findPreference("test");
+            SwitchPreferenceCompat test = findPreference("noti");
             test.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+                   SharedPreferences.Editor editor = sharedPreferences.edit();
+                    boolean flag = ((SwitchPreferenceCompat) preference).getSharedPreferences().getBoolean("clock", false);
 
-
+                    editor.putBoolean("noti",flag);
+                    editor.commit();
+                    if (flag)
+                    manager.initAlarm();
                     return false;
                 }
             });
 
         }
-//eb749245515in speed post
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
@@ -80,9 +79,8 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         }
 
         private void controlSpeakingClock(boolean flag) {
-            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("setting", 0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("key",flag);
+            editor.putBoolean("key", flag);
             editor.commit();
 
             if (!flag) return;
@@ -90,10 +88,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
             PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 111, intent, 0);
 
-            Calendar calendar  = Calendar.getInstance();
-            calendar.set(Calendar.SECOND,00);
-            calendar.set(Calendar.MINUTE,00);
-            calendar.set(Calendar.HOUR,calendar.get(Calendar.HOUR)+1);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.SECOND, 00);
+            calendar.set(Calendar.MINUTE, 00);
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 1);
 
             AlarmManager
 

@@ -13,6 +13,15 @@ public class PeriodTableV2 implements Comparable<PeriodTableV2> {
     private String description;
     private boolean visible;
     private boolean selected;
+    private boolean alarm;
+
+    public boolean isAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(boolean alarm) {
+        this.alarm = alarm;
+    }
 
     public boolean isSelected() {
         return selected;

@@ -3,6 +3,7 @@ package com.iamrajendra.analogclock.utlis;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 
@@ -57,5 +58,9 @@ public class NotificationManager {
                 (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         manager.notify(332, builder.build());
+    }
+
+    public void createNotification(Intent intent) {
+        createNotification(intent.getStringExtra("title"),intent.getStringExtra("des"));
     }
 }
